@@ -26,6 +26,7 @@ namespace Picross
         List<Label> lblRow = new List<Label>();
         List<Label> lblCol = new List<Label>();
 
+        Random rnd = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -59,7 +60,6 @@ namespace Picross
                     temp.Background = Brushes.Gray;
                     temp.HorizontalAlignment = HorizontalAlignment.Center;
                     temp.VerticalAlignment = VerticalAlignment.Center;
-                    if (j == 0) temp.FlowDirection = 
 
                     Grid.SetColumn(temp, i);
                     Grid.SetRow(temp, j);
@@ -279,6 +279,17 @@ namespace Picross
             if (sfd.ShowDialog() != true) return;
 
             File.WriteAllLines(sfd.FileName, gameList.Select(x => String.Join(";", x.Select(y => Convert.ToInt32(y)))));
+        }
+
+        private void generateRandom_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var i in buttons)
+            {
+                foreach (var j in i)
+                {
+                        if (rnd.Next(2) == 0) j.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+            }
         }
     }
 }
